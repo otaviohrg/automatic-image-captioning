@@ -1,3 +1,0 @@
-dataset:
-  images_path: ../data/images/
-  captions_path: ../data/captions.txt
