@@ -2,8 +2,8 @@ import yaml
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 
-from dataset import ImageDataset
-from collate import Collate
+from data.dataloader.dataset import ImageDataset
+from data.dataloader.collate import Collate
 
 
 def get_loader(

@@ -1,5 +1,5 @@
 import torch.nn as nn
-from decoder import DecoderRNN
+from .abstractDecoder import DecoderRNN
 
 
 class LSTMDecoder(DecoderRNN):

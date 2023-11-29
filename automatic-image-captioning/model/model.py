@@ -1,6 +1,9 @@
 import torch
 import torch.nn as nn
 
+from .decoder.lstm import LSTMDecoder
+from .encoder.inception import InceptionEncoder
+
 
 class EncoderDecoder(nn.Module):
     def __init__(self, encoder_model, decoder_model, embed_size, hidden_size, vocab_size, num_layers):
@@ -22,8 +25,8 @@ class EncoderDecoder(nn.Module):
 
             for _ in range(max_length):
                 hidden, states = self.decoder.model(x, states)
-                output = self.decoder.linear(hidden.unsqueeze(0))
-                predicted = output.argmax(1)
+                output = self.decoder.linear(hidden.squeeze(0))
+                predicted = output.argmax(0)
 
                 result_caption.append(predicted.item())
                 x = self.decoder.embed(predicted).unsqueeze(0)
@@ -32,3 +35,15 @@ class EncoderDecoder(nn.Module):
                     break
 
             return [vocabulary.index_to_string[index] for index in result_caption]
+
+
+if __name__ == "__main__":
+    embed_size = 256
+    hidden_size = 256
+    num_layers = 1
+    num_epochs = 100
+    vocab_size = 100
+
+    model = EncoderDecoder(InceptionEncoder, LSTMDecoder, embed_size, hidden_size, vocab_size, num_layers)
+
+    print(model)

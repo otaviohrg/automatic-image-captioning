@@ -4,7 +4,7 @@ import pandas as pd
 from PIL import Image
 from torch.utils.data import Dataset
 
-from vocabulary import Vocabulary
+from .vocabulary import Vocabulary
 
 
 class ImageDataset(Dataset):
